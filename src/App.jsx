@@ -63,8 +63,8 @@ export default function App() {
         <div className="tm-brand">
           <span className="tm-brand__mark">♺</span>
           <span className="tm-brand__text">
-            台灣垃圾桶地圖
-            <small>找垃圾桶 · 也幫忙標垃圾桶</small>
+            垃圾桶地圖
+            <small>找到垃圾筒 · 標出垃圾桶</small>
           </span>
         </div>
         <button
