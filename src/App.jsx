@@ -8,6 +8,7 @@ export default function App() {
   const [addMode, setAddMode] = useState(false)
   const [draft, setDraft] = useState(null) // { lat, lng } 待確認的新垃圾桶
   const mapRef = useRef(null)
+  const [userLocation, setUserLocation] = useState(null)
 
   function startAdding() {
     setAddMode(true)
@@ -44,6 +45,7 @@ export default function App() {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         mapRef.current?.flyTo([pos.coords.latitude, pos.coords.longitude], 16)
+        setUserLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude })
       },
       () => alert('無法取得你的位置，請確認已允許定位權限'),
     )
@@ -80,6 +82,7 @@ export default function App() {
           onPickLocation={setDraft}
           onMoveDraft={setDraft}
           mapRef={mapRef}
+          userLocation={userLocation}
         />
 
         <div className="tm-legend">

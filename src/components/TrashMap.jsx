@@ -2,6 +2,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaf
 import MarkerClusterGroup from 'react-leaflet-cluster'
 import { icons, typeLabel } from './markers'
 
+
 // 台灣中心點，初始縮放看得到整座島
 const TAIWAN_CENTER = [23.8, 120.95]
 const INITIAL_ZOOM = 8
@@ -23,6 +24,7 @@ export default function TrashMap({
   onPickLocation,
   onMoveDraft,
   mapRef,
+  userLocation,
 }) {
   return (
     <MapContainer
@@ -54,6 +56,15 @@ export default function TrashMap({
           </Marker>
         ))}
       </MarkerClusterGroup>
+
+      {userLocation && (
+        <Marker
+          position={[userLocation.lat, userLocation.lng]}
+          icon={icons.userLocation}
+        >
+          <Popup>你在這裡</Popup>
+        </Marker>
+      )}
 
       {/* 尚未確認的新垃圾桶：可拖曳微調位置 */}
       {draft && (

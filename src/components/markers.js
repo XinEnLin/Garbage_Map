@@ -11,13 +11,25 @@ function makePin(variant, glyph) {
   })
 }
 
+function makeLocationDot() {
+  return L.divIcon({
+    className: 'tm-marker',
+    html: `<span class="tm-location-dot"><span class="tm-location-dot__ring"></span></span>`,
+    iconSize: [20, 20],
+    iconAnchor: [10, 10],
+    popupAnchor: [0, -12],
+  })
+}
+
 export const icons = {
   general: makePin('general', '🗑'),
   recycle: makePin('recycle', '♻'),
   draft: makePin('draft', '＋'),
+  userLocation: makeLocationDot(),
 }
 
 export const typeLabel = {
   general: '一般垃圾',
   recycle: '資源回收',
 }
+
