@@ -1,14 +1,23 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import TrashMap from './components/TrashMap'
 import AddTrashPanel from './components/AddTrashPanel'
-import { sampleTrashCans } from './data/sampleTrashCans'
+// import { sampleTrashCans } from './data/sampleTrashCans'
+import { supabase } from './lib/supabase'
 
 export default function App() {
-  const [cans, setCans] = useState(sampleTrashCans)
+  const [cans, setCans] = useState([])
   const [addMode, setAddMode] = useState(false)
   const [draft, setDraft] = useState(null) // { lat, lng } 待確認的新垃圾桶
   const mapRef = useRef(null)
   const [userLocation, setUserLocation] = useState(null)
+
+  // 一進頁面就讀取全部垃圾桶
+  useEffect(() => {
+    supabase.from('trash_cans').select('*').then(({ data, error }) => {
+      if (error) { console.error('讀取失敗', error); return }
+      setCans(data ?? [])
+    })
+  }, [])
 
   function startAdding() {
     setAddMode(true)
@@ -20,23 +29,20 @@ export default function App() {
     setDraft(null)
   }
 
-  function confirmAdd({ type, name }) {
-    setCans((prev) => [
-      ...prev,
-      {
-        id: `user-${Date.now()}`,
-        lat: draft.lat,
-        lng: draft.lng,
-        type,
-        name,
-        source: 'user',
-      },
-    ])
+  async function confirmAdd({ type, name }) {
+    const { data, error } = await supabase
+      .from('trash_cans')
+      .insert({ lat: draft.lat, lng: draft.lng, type, name, source: 'user' })
+      .select()
+      .single()
+
+    if (error) { alert('新增失敗：' + error.message); return }
+
+    setCans((prev) => [...prev, data])
     setAddMode(false)
     setDraft(null)
-    // TODO：在這裡呼叫後端，把新垃圾桶寫進 Firebase / Supabase
   }
-
+  
   function locateMe() {
     if (!navigator.geolocation) {
       alert('這個瀏覽器不支援定位功能')
