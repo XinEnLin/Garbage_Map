@@ -513,27 +513,126 @@ body {
   letter-spacing: 0.03em;
 }
 
+.tm-landing__tips-btn {
+  font-size: 14px;
+  padding: 10px 24px;
+}
+
+/* ---------- 小知識 Modal ---------- */
+.tm-tips-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(16, 37, 43, 0.45);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 900;
+  animation: tm-fade-in 0.18s ease;
+}
+
+@keyframes tm-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.tm-tips-modal {
+  width: 100%;
+  max-width: 520px;
+  max-height: 80vh;
+  overflow-y: auto;
+  background: var(--surface);
+  border-radius: 20px 20px 0 0;
+  padding: 20px 20px calc(24px + var(--sab));
+  animation: tm-slide-up 0.22s ease;
+}
+
+@media (min-width: 560px) {
+  .tm-tips-overlay { align-items: center; }
+  .tm-tips-modal { border-radius: 20px; max-height: 85vh; }
+}
+
+.tm-tips-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.tm-tips-modal__title {
+  font-size: 17px;
+  font-weight: 900;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tm-tips-modal__badge {
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--brand);
+  color: #fff;
+  border-radius: 6px;
+  padding: 2px 7px;
+  letter-spacing: 0.02em;
+}
+
+.tm-tips-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tm-tips-item {
+  display: grid;
+  grid-template-columns: 5.5em 1fr;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.tm-tips-item__label {
+  font-weight: 700;
+  color: var(--brand);
+  padding-top: 1px;
+}
+
+.tm-tips-item__text {
+  color: var(--ink);
+}
+
+.tm-tips-item__text u {
+  text-decoration-color: var(--general);
+  text-underline-offset: 2px;
+}
+
+.tm-tips-modal__note {
+  margin: 16px 0 0;
+  font-size: 12px;
+  color: var(--ink-soft);
+  text-align: center;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
 /* ---------- 地圖頁頂部左側 ---------- */
 .tm-header__left {
   display: flex;
   align-items: center;
-  gap: 10px;
   min-width: 0;
 }
 
-.tm-home-btn {
-  flex: none;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  border: 1.5px solid var(--line);
-  background: var(--surface);
-  color: var(--brand);
-  font-size: 20px;
+.tm-brand__mark--btn {
+  font: inherit;
+  border: none;
+  padding: 0;
   cursor: pointer;
-  display: grid;
-  place-items: center;
-  transition: background 0.12s ease, transform 0.06s ease;
+  transition: transform 0.12s ease, opacity 0.12s ease;
 }
-.tm-home-btn:hover { background: var(--paper); }
-.tm-home-btn:active { transform: scale(0.93); }
+.tm-brand__mark--btn:hover { opacity: 0.8; transform: scale(1.08); }
+.tm-brand__mark--btn:active { transform: scale(0.93); }

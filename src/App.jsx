@@ -69,16 +69,15 @@ export default function App() {
     <div className="tm-app">
       <header className="tm-header">
         <div className="tm-header__left">
-          <button
-            type="button"
-            className="tm-home-btn"
-            onClick={() => setView('landing')}
-            aria-label="回到首頁"
-          >
-            ⌂
-          </button>
           <div className="tm-brand">
-            <span className="tm-brand__mark">♺</span>
+            <button
+              type="button"
+              className="tm-brand__mark tm-brand__mark--btn"
+              onClick={() => setView('landing')}
+              aria-label="回到首頁"
+            >
+              ♺
+            </button>
             <span className="tm-brand__text">
               垃圾桶地圖
               <small>找到垃圾筒 · 標出垃圾桶</small>
