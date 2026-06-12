@@ -18,7 +18,7 @@ export default function LandingPage({ onStart }) {
         <div className="tm-landing__logo">♺</div>
         <h1 className="tm-landing__title">垃圾桶地圖</h1>
         <p className="tm-landing__desc">
-          找到附近的垃圾桶<br />也可以幫大家標出新的垃圾桶位置
+          找到並標出日常生活中的的垃圾桶位置
         </p>
         <button className="tm-btn tm-btn--primary tm-landing__start" onClick={onStart}>
           開始探索
@@ -26,6 +26,7 @@ export default function LandingPage({ onStart }) {
         <button className="tm-btn tm-btn--ghost tm-landing__tips-btn" onClick={() => setShowTips(true)}>
           🗑️ 垃圾小知識
         </button>
+        <p className="tm-tips-modal__note">by 設計方法與創意思考課程 第八組</p>
       </div>
 
       {showTips && (
