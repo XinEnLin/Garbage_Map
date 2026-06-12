@@ -2,10 +2,12 @@ import { useEffect, useRef, useState } from 'react'
 import TrashMap from './components/TrashMap'
 import AddTrashPanel from './components/AddTrashPanel'
 import DetailPanel from './components/DetailPanel'
+import LandingPage from './components/LandingPage'
 // import { sampleTrashCans } from './data/sampleTrashCans'
 import { supabase } from './lib/supabase'
 
 export default function App() {
+  const [view, setView] = useState('landing') // 'landing' | 'map'
   const [cans, setCans] = useState([])
   const [addMode, setAddMode] = useState(false)
   const [draft, setDraft] = useState(null) // { lat, lng } 待確認的新垃圾桶
@@ -59,15 +61,29 @@ export default function App() {
     )
   }
 
+  if (view === 'landing') {
+    return <LandingPage onStart={() => setView('map')} />
+  }
+
   return (
     <div className="tm-app">
       <header className="tm-header">
-        <div className="tm-brand">
-          <span className="tm-brand__mark">♺</span>
-          <span className="tm-brand__text">
-            垃圾桶地圖
-            <small>找到垃圾筒 · 標出垃圾桶</small>
-          </span>
+        <div className="tm-header__left">
+          <button
+            type="button"
+            className="tm-home-btn"
+            onClick={() => setView('landing')}
+            aria-label="回到首頁"
+          >
+            ⌂
+          </button>
+          <div className="tm-brand">
+            <span className="tm-brand__mark">♺</span>
+            <span className="tm-brand__text">
+              垃圾桶地圖
+              <small>找到垃圾筒 · 標出垃圾桶</small>
+            </span>
+          </div>
         </div>
         <button
           type="button"

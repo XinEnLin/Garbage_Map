@@ -460,3 +460,80 @@ body {
 @media (min-width: 720px) {
   .tm-panel--detail { max-height: calc(100vh - 120px); }
 }
+
+/* ---------- 首頁 ---------- */
+.tm-landing {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, #eaf6f5 0%, var(--paper) 60%);
+}
+
+.tm-landing__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  padding: 40px 24px;
+}
+
+.tm-landing__logo {
+  width: 88px;
+  height: 88px;
+  border-radius: 26px;
+  background: var(--brand);
+  color: #fff;
+  font-size: 52px;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 10px 36px rgba(14, 124, 123, 0.28);
+}
+
+.tm-landing__title {
+  font-size: 34px;
+  font-weight: 900;
+  color: var(--ink);
+  margin: 8px 0 0;
+  letter-spacing: 0.02em;
+}
+
+.tm-landing__desc {
+  font-size: 15px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.tm-landing__start {
+  margin-top: 12px;
+  padding: 14px 48px;
+  font-size: 17px;
+  letter-spacing: 0.03em;
+}
+
+/* ---------- 地圖頁頂部左側 ---------- */
+.tm-header__left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.tm-home-btn {
+  flex: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  color: var(--brand);
+  font-size: 20px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.12s ease, transform 0.06s ease;
+}
+.tm-home-btn:hover { background: var(--paper); }
+.tm-home-btn:active { transform: scale(0.93); }
