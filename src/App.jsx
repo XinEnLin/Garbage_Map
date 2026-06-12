@@ -3,6 +3,7 @@ import TrashMap from './components/TrashMap'
 import AddTrashPanel from './components/AddTrashPanel'
 import DetailPanel from './components/DetailPanel'
 import LandingPage from './components/LandingPage'
+import logo from './assets/logo.png'
 // import { sampleTrashCans } from './data/sampleTrashCans'
 import { supabase } from './lib/supabase'
 
@@ -76,10 +77,10 @@ export default function App() {
               onClick={() => setView('landing')}
               aria-label="回到首頁"
             >
-              ♺
+              <img src={logo} alt="回到首頁" className="tm-brand__mark-img" />
             </button>
             <span className="tm-brand__text">
-              垃圾桶地圖
+              全民倒笨手
               <small>找到垃圾筒 · 標出垃圾桶</small>
             </span>
           </div>

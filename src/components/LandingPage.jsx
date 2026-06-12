@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import logo from '../assets/logo.png'
 
 const TIPS = [
   { label: '三類分類', text: <>丟棄前先分「一般垃圾、資源回收、廚餘」，分對才能有效循環再利用。</> },
@@ -15,8 +16,10 @@ export default function LandingPage({ onStart }) {
   return (
     <div className="tm-landing">
       <div className="tm-landing__content">
-        <div className="tm-landing__logo">♺</div>
-        <h1 className="tm-landing__title">垃圾桶地圖</h1>
+        <div className="tm-landing__logo">
+          <img src={logo} alt="logo" className="tm-landing__logo-img" />
+        </div>
+        <h1 className="tm-landing__title">全民倒笨手</h1>
         <p className="tm-landing__desc">
           找到並標出日常生活中的的垃圾桶位置
         </p>
