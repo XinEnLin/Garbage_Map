@@ -25,6 +25,7 @@ export default function TrashMap({
   onMoveDraft,
   mapRef,
   userLocation,
+  onSelectCan,
 }) {
   return (
     <MapContainer
@@ -43,17 +44,12 @@ export default function TrashMap({
 
       <MarkerClusterGroup chunkedLoading>
         {cans.map((c) => (
-          <Marker key={c.id} position={[c.lat, c.lng]} icon={icons[c.type]}>
-            <Popup>
-              <div className="tm-popup">
-                <strong className="tm-popup__name">{c.name || '未命名垃圾桶'}</strong>
-                <span className={`tm-tag tm-tag--${c.type}`}>{typeLabel[c.type]}</span>
-                <span className="tm-popup__meta">
-                  {c.source === 'user' ? '使用者新增' : '政府開放資料'}
-                </span>
-              </div>
-            </Popup>
-          </Marker>
+          <Marker
+            key={c.id}
+            position={[c.lat, c.lng]}
+            icon={icons[c.type]}
+            eventHandlers={{ click: () => onSelectCan(c) }}
+          />
         ))}
       </MarkerClusterGroup>
 

@@ -329,3 +329,134 @@ body {
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
+
+/* ---------- DetailPanel ---------- */
+.tm-panel--detail {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.tm-detail-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.tm-detail-header__info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.tm-detail-close {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: var(--ink-soft);
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 8px;
+  line-height: 1;
+}
+.tm-detail-close:hover { color: var(--ink); background: var(--paper); }
+
+/* 愛心 */
+.tm-like-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.tm-like-btn {
+  font-size: 24px;
+  background: none;
+  border: 1.5px solid var(--line);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s, border-color 0.15s;
+  color: var(--ink-soft);
+}
+.tm-like-btn:not(:disabled):hover {
+  border-color: #e05a5a;
+  color: #e05a5a;
+  transform: scale(1.1);
+}
+.tm-like-btn.is-liked {
+  border-color: #e05a5a;
+  color: #e05a5a;
+  cursor: default;
+}
+.tm-like-btn:active:not(:disabled) { transform: scale(0.9); }
+.tm-like-count {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* 留言區 */
+.tm-comments { display: flex; flex-direction: column; gap: 12px; }
+.tm-comments__title {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--ink);
+}
+.tm-comments__empty {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* 留言表單 */
+.tm-comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tm-input--sm { padding: 8px 12px; font-size: 14px; }
+.tm-textarea {
+  width: 100%;
+  font: inherit;
+  font-size: 14px;
+  padding: 10px 13px;
+  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  resize: vertical;
+}
+.tm-textarea:focus { outline: none; border-color: var(--brand); }
+.tm-btn--sm { padding: 9px 16px; font-size: 14px; }
+
+/* 留言列表 */
+.tm-comment-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.tm-comment {
+  background: var(--paper);
+  border-radius: 12px;
+  padding: 10px 13px;
+}
+.tm-comment__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.tm-comment__author { font-size: 13px; font-weight: 700; color: var(--brand); }
+.tm-comment__time   { font-size: 11px; color: var(--ink-soft); }
+.tm-comment__body   { font-size: 14px; margin: 0; line-height: 1.5; word-break: break-word; }
+
+@media (min-width: 720px) {
+  .tm-panel--detail { max-height: calc(100vh - 120px); }
+}

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import TrashMap from './components/TrashMap'
 import AddTrashPanel from './components/AddTrashPanel'
+import DetailPanel from './components/DetailPanel'
 // import { sampleTrashCans } from './data/sampleTrashCans'
 import { supabase } from './lib/supabase'
 
@@ -10,6 +11,7 @@ export default function App() {
   const [draft, setDraft] = useState(null) // { lat, lng } 待確認的新垃圾桶
   const mapRef = useRef(null)
   const [userLocation, setUserLocation] = useState(null)
+  const [selectedCan, setSelectedCan] = useState(null)
 
   // 一進頁面就讀取全部垃圾桶
   useEffect(() => {
@@ -89,6 +91,7 @@ export default function App() {
           onMoveDraft={setDraft}
           mapRef={mapRef}
           userLocation={userLocation}
+          onSelectCan={setSelectedCan}
         />
 
         <div className="tm-legend">
@@ -102,6 +105,7 @@ export default function App() {
       </main>
 
       <AddTrashPanel draft={draft} onConfirm={confirmAdd} onCancel={cancelAdding} />
+      <DetailPanel can={selectedCan} onClose={() => setSelectedCan(null)} />
     </div>
   )
 }
