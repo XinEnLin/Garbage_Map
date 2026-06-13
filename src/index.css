@@ -293,6 +293,7 @@ body {
   border-radius: 12px;
   border: 1.5px solid var(--line);
   background: var(--surface);
+
 }
 .tm-input:focus {
   outline: none;
@@ -518,7 +519,7 @@ body {
   gap: 8px;
   margin-bottom: 4px;
 }
-.tm-comment__author { font-size: 13px; font-weight: 700; color: var(--brand); }
+.tm-comment__author { font-size: 13px; font-weight: 700; color: var(--brand); color: #000;}
 .tm-comment__time   { font-size: 11px; color: var(--ink-soft); }
 .tm-comment__body   { font-size: 14px; margin: 0; line-height: 1.5; word-break: break-word; }
 
@@ -641,7 +642,7 @@ body {
 .tm-tips-modal__badge {
   font-size: 11px;
   font-weight: 700;
-  background: var(--brand);
+  background: var(--brand-press);
   color: #fff;
   border-radius: 6px;
   padding: 2px 7px;
@@ -667,7 +668,7 @@ body {
 
 .tm-tips-item__label {
   font-weight: 700;
-  color: var(--brand);
+  color: var(#000);
   padding-top: 1px;
 }
 
