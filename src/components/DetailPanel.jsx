@@ -7,7 +7,7 @@ function formatTime(iso) {
   return `${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`
 }
 
-export default function DetailPanel({ can, onClose }) {
+export default function DetailPanel({ can, onClose, onDelete }) {
   const [likeCount, setLikeCount] = useState(0)
   const [liked, setLiked] = useState(false)
   const [liking, setLiking] = useState(false)
@@ -15,11 +15,14 @@ export default function DetailPanel({ can, onClose }) {
   const [authorName, setAuthorName] = useState('')
   const [body, setBody] = useState('')
   const [submitting, setSubmitting] = useState(false)
+  const [confirming, setConfirming] = useState(false)
+  const [isRemoving, setIsRemoving] = useState(false)
 
   useEffect(() => {
     if (!can) return
     setLikeCount(0)
     setComments([])
+    setConfirming(false)
     setLiked(localStorage.getItem(`liked_${can.id}`) === '1')
 
     supabase
@@ -47,6 +50,12 @@ export default function DetailPanel({ can, onClose }) {
       setLikeCount((n) => n + 1)
     }
     setLiking(false)
+  }
+
+  async function handleDelete() {
+    setIsRemoving(true)
+    await onDelete(can.id)
+    setIsRemoving(false)
   }
 
   async function handleComment(e) {
@@ -80,6 +89,10 @@ export default function DetailPanel({ can, onClose }) {
         </div>
         <button type="button" className="tm-detail-close" onClick={onClose} aria-label="關閉">✕</button>
       </div>
+
+      {can.photo_url && (
+        <img src={can.photo_url} alt="垃圾桶照片" className="tm-detail-photo" />
+      )}
 
       <div className="tm-like-row">
         <button
@@ -139,6 +152,42 @@ export default function DetailPanel({ can, onClose }) {
             ))}
           </ul>
         )}
+
+        <div className="tm-detail-header__actions">
+            {can.source === 'user' && (
+              confirming ? (
+                <span className="tm-confirm-row">
+                  <button
+                    type="button"
+                    className="tm-btn tm-btn--danger tm-btn--sm"
+                    onClick={handleDelete}
+                    disabled={isRemoving}
+                  >
+                    {isRemoving ? '刪除中…' : '確定刪除'}
+                  </button>
+                  <button
+                    type="button"
+                    className="tm-btn tm-btn--sm"
+                    onClick={() => setConfirming(false)}
+                    disabled={isRemoving}
+                  >
+                    取消
+                  </button>
+                </span>
+              ) : (
+                <button
+                  type="button"
+                  className="tm-btn tm-btn--danger tm-btn--sm"
+                  
+                  onClick={() => setConfirming(true)}
+                  aria-label="刪除垃圾桶"
+                >
+                  🗑 刪除
+                </button>
+              )
+            )}
+
+          </div>
       </div>
     </div>
   )

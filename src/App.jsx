@@ -34,10 +34,34 @@ export default function App() {
     setDraft(null)
   }
 
-  async function confirmAdd({ type, name }) {
+  async function deleteCan(id) {
+    await supabase.from('likes').delete().eq('trash_can_id', id)
+    await supabase.from('comments').delete().eq('trash_can_id', id)
+    const { error } = await supabase.from('trash_cans').delete().eq('id', id)
+    if (error) { alert('刪除失敗：' + error.message); return }
+    setCans((prev) => prev.filter((c) => c.id !== id))
+    setSelectedCan(null)
+  }
+
+  async function confirmAdd({ type, name, photoFile }) {
+    let photo_url = null
+
+    if (photoFile) {
+      const ext = photoFile.name.split('.').pop() || 'jpg'
+      const path = `${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`
+      const { error: uploadError } = await supabase.storage
+        .from('trash-photos')
+        .upload(path, photoFile, { contentType: photoFile.type })
+      if (uploadError) { alert('照片上傳失敗：' + uploadError.message); return }
+      const { data: { publicUrl } } = supabase.storage
+        .from('trash-photos')
+        .getPublicUrl(path)
+      photo_url = publicUrl
+    }
+
     const { data, error } = await supabase
       .from('trash_cans')
-      .insert({ lat: draft.lat, lng: draft.lng, type, name, source: 'user' })
+      .insert({ lat: draft.lat, lng: draft.lng, type, name, source: 'user', photo_url })
       .select()
       .single()
 
@@ -121,7 +145,7 @@ export default function App() {
       </main>
 
       <AddTrashPanel draft={draft} onConfirm={confirmAdd} onCancel={cancelAdding} />
-      <DetailPanel can={selectedCan} onClose={() => setSelectedCan(null)} />
+      <DetailPanel can={selectedCan} onClose={() => setSelectedCan(null)} onDelete={deleteCan} />
     </div>
   )
 }

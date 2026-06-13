@@ -361,6 +361,71 @@ body {
 }
 .tm-detail-close:hover { color: var(--ink); background: var(--paper); }
 
+.tm-detail-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.tm-btn--danger {
+  background: #e53e3e;
+  color: #fff;
+  border-color: #e53e3e;
+  margin:auto;
+}
+.tm-btn--danger:hover {
+  background: #c53030;
+  border-color: #c53030;
+}
+.tm-confirm-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin: auto;
+}
+
+/* 照片上傳 */
+.tm-photo-upload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  min-height: 120px;
+  background: var(--paper);
+}
+.tm-photo-placeholder { color: var(--ink-soft); font-size: 14px; padding: 16px; text-align: center; }
+.tm-photo-preview { width: 100%; max-height: 200px; object-fit: cover; display: block; }
+.tm-photo-clear {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--ink-soft);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+.tm-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+/* DetailPanel 照片 */
+.tm-detail-photo {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 14px;
+}
+
 /* 愛心 */
 .tm-like-row {
   display: flex;

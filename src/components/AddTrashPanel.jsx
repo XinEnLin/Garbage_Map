@@ -4,6 +4,20 @@ import { typeLabel } from './markers'
 export default function AddTrashPanel({ draft, onConfirm, onCancel }) {
   const [type, setType] = useState('general')
   const [name, setName] = useState('')
+  const [photoFile, setPhotoFile] = useState(null)
+  const [previewUrl, setPreviewUrl] = useState(null)
+
+  function handlePhotoChange(e) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setPhotoFile(file)
+    setPreviewUrl(URL.createObjectURL(file))
+  }
+
+  function removePhoto() {
+    setPhotoFile(null)
+    setPreviewUrl(null)
+  }
 
   if (!draft) return null
 
@@ -46,6 +60,29 @@ export default function AddTrashPanel({ draft, onConfirm, onCancel }) {
         />
       </div>
 
+      <div className="tm-field">
+        <span className="tm-field__label">照片（選填）</span>
+        <label className="tm-photo-upload" htmlFor="tm-photo">
+          {previewUrl
+            ? <img src={previewUrl} alt="預覽" className="tm-photo-preview" />
+            : <span className="tm-photo-placeholder">📷 點擊選擇或拍攝照片</span>
+          }
+          <input
+            id="tm-photo"
+            type="file"
+            accept="image/*"
+            capture="environment"
+            className="tm-visually-hidden"
+            onChange={handlePhotoChange}
+          />
+        </label>
+        {photoFile && (
+          <button type="button" className="tm-photo-clear" onClick={removePhoto}>
+            移除照片
+          </button>
+        )}
+      </div>
+
       <div className="tm-panel__coords">
         {draft.lat.toFixed(5)}, {draft.lng.toFixed(5)}
       </div>
@@ -57,7 +94,7 @@ export default function AddTrashPanel({ draft, onConfirm, onCancel }) {
         <button
           type="button"
           className="tm-btn tm-btn--primary"
-          onClick={() => onConfirm({ type, name: name.trim() })}
+          onClick={() => onConfirm({ type, name: name.trim(), photoFile })}
         >
           確認新增
         </button>
